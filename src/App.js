@@ -7,7 +7,8 @@ class App extends Component {
   constructor() {
     super();
       this.state = {
-        tasks: ["Sacar la ropa", "Hacer la cama", "Leer un rato"]
+        tasks: ["Sacar la ropa", "Hacer la cama", "Leer un rato"],
+        name: ""
       }
   }
 
@@ -26,7 +27,7 @@ class App extends Component {
               )}
           </ul>
            <form>
-             <input onKeyDown={this.handleKeyPress.bind(this)} type="text" id="new-task" placeholder="Ingresa una tarea y oprime Enter" />
+             <input onKeyDown={this.handleKeyPress.bind(this)} onChange={this.valueMethod.bind(this)} value={this.state.name} type="text" id="new-task" placeholder="Ingresa una tarea y oprime Enter" />
            </form>
         </div>
       </div>
@@ -34,19 +35,29 @@ class App extends Component {
   }
 
 
+valueMethod(event) {
+  this.setState({
+    name: event.target.value
+  });
+
+}
+
+
   handleKeyPress = (event) => {
     if (event.key === 'Enter') {
-     event.preventDefault()  
+     event.preventDefault();  
         this.setState({
-
-          tasks: this.state.tasks.concat(event.target.value)
-
+          tasks: this.state.tasks.concat(event.target.value),
+          name: ''
         });
-
-    }
    
+    }
+
+    
+  
   }
 
+  
 
 
 }
