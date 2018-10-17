@@ -3,61 +3,43 @@ import React, { Component } from 'react';
 /// Modifica el componente para que se puedan agregar tareas
 
 class App extends Component {
-
   constructor() {
-    super();
-      this.state = {
-        tasks: ["Sacar la ropa", "Hacer la cama", "Leer un rato"],
-        name: ""
-      }
+    super()
+    this.state = {
+      tasks: ['sacar la ropa', 'hacer la cama', 'leer un rato'],
+      newTask: ''
+    }
   }
-
-
+  addTask(event) {
+    event.preventDefault()
+    let oldTasks = this.state.tasks
+    let newTask = this.state.newTask
+    this.setState({
+      tasks: [...oldTasks, newTask],
+      newTask: ''
+    })
+  }
+  updateTask(event) {
+    this.setState({
+      newTask: event.target.value
+    })
+  }
   render() {
     return (
-      <div className="wrapper">
-        <div className="list">
+      <div class="wrapper">
+        <div class="list">
           <h3>Por hacer:</h3>
-          <ul className="todo">
-            {this.state.tasks.map((task, i) => 
-
-                <li key={i}>{task}</li>
-        
-              )}
+          <ul class="todo">
+            {this.state.tasks.map((task, index) => <li key={index}>{task}</li>)}
           </ul>
-           <form onSubmit={this.handleSubmit.bind(this)}>
-             <input onChange={this.valueMethod.bind(this)} value={this.state.name} type="text" id="new-task" placeholder="Ingresa una tarea y oprime Enter" />
-           </form>
+          <form onSubmit={this.addTask.bind(this)}>
+            <input type="text" id="new-task" placeholder="Ingresa una tarea y oprime Enter" value={this.state.newTask} onChange={this.updateTask.bind(this)}/>
+          </form>
         </div>
       </div>
-    );
+    )
   }
-
-
-
-
-
-  handleSubmit(event) {
-        event.preventDefault();
-        this.setState({
-          tasks: this.state.tasks.concat("Hola"),
-          name: ""
-        });
-
-      
-    }
-
-
-valueMethod(event) {
-  this.setState({
-    name: event.target.value
-  });
-
 }
-
-
-  }
-
 
 
 
