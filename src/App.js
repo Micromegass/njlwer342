@@ -19,20 +19,33 @@ class App extends Component {
         <div className="list">
           <h3>Por hacer:</h3>
           <ul className="todo">
-            {this.state.tasks.map(task => 
+            {this.state.tasks.map((task, i) => 
 
-                <li>{task}</li>
-
+                <li key={i}>{task}</li>
         
               )}
           </ul>
-           <form>
-             <input onKeyDown={this.handleKeyPress.bind(this)} onChange={this.valueMethod.bind(this)} value={this.state.name} type="text" id="new-task" placeholder="Ingresa una tarea y oprime Enter" />
+           <form onSubmit={this.handleSubmit.bind(this)}>
+             <input onChange={this.valueMethod.bind(this)} value={this.state.name} type="text" id="new-task" placeholder="Ingresa una tarea y oprime Enter" />
            </form>
         </div>
       </div>
     );
   }
+
+
+
+
+
+  handleSubmit(event) {
+        event.preventDefault();
+        this.setState({
+          tasks: this.state.tasks.concat("Hola"),
+          name: ""
+        });
+
+      
+    }
 
 
 valueMethod(event) {
@@ -43,24 +56,11 @@ valueMethod(event) {
 }
 
 
-  handleKeyPress = (event) => {
-    if (event.key === 'Enter') {
-     event.preventDefault();  
-        this.setState({
-          tasks: this.state.tasks.concat(event.target.value),
-          name: ''
-        });
-   
-    }
-
-    
-  
   }
 
-  
 
 
-}
+
 
 
 export default App;
